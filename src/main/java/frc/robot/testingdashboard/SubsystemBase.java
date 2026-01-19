@@ -6,6 +6,8 @@ package frc.robot.testingdashboard;
 
 import java.util.ArrayList;
 
+import frc.robot.utils.Configuration;
+
 public class SubsystemBase extends edu.wpi.first.wpilibj2.command.SubsystemBase {
 
   ArrayList<TDValue> m_values;
@@ -34,5 +36,15 @@ public class SubsystemBase extends edu.wpi.first.wpilibj2.command.SubsystemBase 
   public void registerValue(TDValue value)
   {
     m_values.add(value);
+  }
+
+  public double cfgDbl(String name)
+  {
+    return Configuration.getInstance().getDouble(getName(), name);
+  }
+
+  public int cfgInt(String name)
+  {
+    return Configuration.getInstance().getInt(getName(), name);
   }
 }
