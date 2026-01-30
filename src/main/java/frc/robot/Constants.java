@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import frc.robot.utils.Configuration;
 import frc.robot.utils.vision.VisionConfig;
 
 public final class Constants {
@@ -37,8 +38,11 @@ public final class Constants {
         public static final double kVortexFreeSpeedRPM = 6784;
         public static final double kDrivingMotorFreeSpeedRPS = kVortexFreeSpeedRPM / 60;
         public static final double kDriveWheelFreeSpeedRPS = (kDrivingMotorFreeSpeedRPS * kWheelCircumferenceMeters) / kDrivingMotorReduction;
+        static double nominalVoltage = 12.0;
+        public static final double kDrivingVelocityFF = nominalVoltage / kDriveWheelFreeSpeedRPS;
 
-        public static final double kDrivingP = 0.4;
+
+        public static final double kDrivingP = Configuration.getInstance().getDouble("Drive", "kDrivingP");
         public static final double kDrivingI = 0;
         public static final double kDrivingD = 0;
         public static final double kDrivingFF = 1 / kDriveWheelFreeSpeedRPS;
