@@ -35,7 +35,7 @@ public class AllianceAprilTags {
         int backRightTrench,
         int frontLeftHub,
         int frontRightHub,
-        int leftLeftHub, //first direction is which face of the hub relative to the drivers, second direction is location on that face
+        int leftLeftHub, 
         int leftRightHub,
         int rightLeftHub,
         int rightRightHub,
