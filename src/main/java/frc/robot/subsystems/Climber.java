@@ -153,12 +153,28 @@ public class Climber extends SubsystemBase {
     return m_Climber;
   }
 
+  public void FunnyClimbAction() {
+  }
+
+  public void FunnyClimbAscendAction() {
+  }
+
+  public void FunnyClimbDescendAction() {
+  }
+
+  public void FunnyClimbHaltAction() {
+  }
+
   public double getClimberTargetAngle() {
     return m_climberLastAngle;
   }
 
   public double getClimberAngle() {
     return m_climberMotorEncoder.getPosition();
+  }
+
+  public boolean isClimberOnRung() {
+    return false;
   }
 
   public void setClimberTargetAngle(double positionInches) {
