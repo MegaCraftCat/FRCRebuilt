@@ -12,7 +12,7 @@ import frc.robot.commands.drive.JoystickHeadingDrive;
 import frc.robot.subsystems.Drive;
 import frc.robot.utils.TriggerBuilder;
 import frc.robot.utils.Referrable;
-import frc.robot.utils.SwerveDriveInputs;
+import frc.robot.utils.drive.SwerveDriveInputs;
 import frc.robot.utils.TriggerBuilder.RumbleIndicator;
 import frc.robot.utils.TriggerBuilder.SwitchIndicator;
 

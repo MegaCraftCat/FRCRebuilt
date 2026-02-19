@@ -12,7 +12,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.testingdashboard.Command;
 import frc.robot.testingdashboard.TDNumber;
 import frc.robot.testingdashboard.TDSendable;
-import frc.robot.utils.SwerveDriveInputs;
+import frc.robot.utils.drive.SwerveDriveInputs;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class JoystickHeadingDrive extends Command {

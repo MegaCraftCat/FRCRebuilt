@@ -25,12 +25,16 @@
     },
   
     "Drive" : [
-       {"varName" : "frontRightChassisAngularOffset", "value" : 0.0 },
-       {"varName" : "frontLeftChassisAngularOffset", "value" : -1.570796 },
-       {"varName" : "backRightChassisAngularOffset", "value" : 1.570796 },
-       {"varName" : "backLeftChassisAngularOffset", "value" : 3.141593 },
-       {"varName" : "kDrivingP", "value" : 0.02}
-   ],
+       {"varName" : "DriveMotorFreeSpeed", "value" : 6784},
+       {"varName" : "WheelDiameter", "value" : 0.0762},
+       {"varName" : "PinionTeeth", "value" : 13},
+       {"varName" : "DrivingkP", "value" : 0.02},
+       {"varName" : "DrivingkI", "value" : 0.0},
+       {"varName" : "DrivingkD", "value" : 0.0},
+       {"varName" : "DrivingkS", "value" : 0.0187},
+       {"varName" : "DrivingkA", "value" : 0.0437},
+       {"varName" : "TurningkP", "value" : 1.0}
+    ],
 
    "Intake" : [
        {"varName" : "intakeEnabled", "value" : false},
@@ -110,17 +114,26 @@
        "backRightTurning" :  {"cType":"SparkMax", "mType":"kBrushless", "canid":9},
        "backRightDrive" :    {"cType":"SparkMax", "mType":"kBrushless", "canid":8},
        "backLeftTurning" :   {"cType":"SparkMax", "mType":"kBrushless", "canid":7},
-       "backLeftDrive" :     {"cType":"SparkMax", "mType":"kBrushless", "canid":6}
+       "backLeftDrive" :     {"cType":"SparkMax", "mType":"kBrushless", "canid":6},
+       "climberRight"  :     {"cType":"SparkFlex", "mType":"kBrushless", "canid":18},
+       "climberLeft"  :      {"cType":"SparkFlex", "mType":"kBrushless", "canid":19}
    },
    "Drive" : [
-       {"varName" : "kDrivingP", "value" : 0.02},
-       {"varName" : "kTurningP", "value" : 1.0}
+       {"varName" : "DriveMotorFreeSpeed", "value" : 6784},
+       {"varName" : "WheelDiameter", "value" : 0.0762},
+       {"varName" : "PinionTeeth", "value" : 13},
+       {"varName" : "DrivingkP", "value" : 0.02},
+       {"varName" : "DrivingkI", "value" : 0.0},
+       {"varName" : "DrivingkD", "value" : 0.0},
+       {"varName" : "DrivingkS", "value" : 0.0187},
+       {"varName" : "DrivingkA", "value" : 0.0437},
+       {"varName" : "TurningkP", "value" : 1.0}
     ],
-   "Spindex" : [
-       {"varName" : "spindexEnabled", "value" : false},
-       {"varName" : "spindexCanId", "value" : 15},
-       {"varName" : "spindexStallLimit", "value" : 0},
-       {"varName" : "spindexFreeLimit", "value" : 60}
+   "Spindexer" : [
+       {"varName" : "spindexerEnabled", "value" : false},
+       {"varName" : "spindexerCanId", "value" : 15},
+       {"varName" : "spindexerStallLimit", "value" : 0},
+       {"varName" : "spindexerFreeLimit", "value" : 60}
    ],
    "Intake" : [
        {"varName" : "intakeEnabled", "value" : false},
@@ -191,7 +204,12 @@
         {"varName" : "hoodMotorFreeSpeed", "value" : 5676},
         {"varName" : "hoodMaxAcceleration", "value" : 720},
         {"varName" : "hoodMaxAngle", "value" : 40},
-        {"varName" : "hoodMinAngle", "value": 0}
+        {"varName" : "hoodMinAngle", "value": 0},
+
+        {"varName" : "chimneyEnabled", "value": false},
+        {"varName" : "chimneyMotorCANid", "value": 20}
+        
+
    ],
    "LED" : [
         {"varName" : "LEDPort", "value": 1},
