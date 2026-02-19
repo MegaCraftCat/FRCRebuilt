@@ -15,11 +15,11 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LED;
-import frc.robot.subsystems.MAXSwerveModule;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Spindexer;
 import frc.robot.subsystems.Vision;
 import frc.robot.testingdashboard.TestingDashboard;
+import frc.robot.utils.drive.MAXSwerveModule;
 
 public class RobotContainer {
   private PowerDistribution m_pdBoard;
