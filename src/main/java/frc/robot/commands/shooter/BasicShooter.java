@@ -13,8 +13,8 @@ import frc.robot.subsystems.Spindexer;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class BasicShooter extends Command {
   private final Shooter m_Shooter;
-  Spindexer m_spindexer;
-  double m_spindexerSpeed;
+  private final Spindexer m_spindexer;
+  private double m_spindexerSpeed;
 
   public BasicShooter() {
     super(Shooter.getInstance(), "Basic","BasicShooter");
