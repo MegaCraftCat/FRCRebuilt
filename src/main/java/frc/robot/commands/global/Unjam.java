@@ -31,6 +31,10 @@ public class Unjam extends Command{
         m_shooter = Shooter.getInstance();
         m_chimneySpeed = Configuration.getInstance().getDouble("Chimney", "chimneySpeed");
         m_flywheelSpeed = Configuration.getInstance().getDouble("Shooter", "flywheelVelocityFactor"); //right variable?
+
+        addRequirements(m_intake);
+        addRequirements(m_spindexer);
+        addRequirements(m_shooter);
     }
 
     @Override 
