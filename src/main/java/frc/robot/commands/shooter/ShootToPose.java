@@ -56,7 +56,7 @@ public class ShootToPose extends Command {
 
         m_displayRes = 32;
 
-        m_cameraName = "Arducam_OV9782_D";
+        m_cameraName = "TurretCamera";
 
         // Drive/Vision isn't a requirement - it's used for reading only
         addRequirements(m_Shooter);

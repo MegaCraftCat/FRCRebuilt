@@ -441,6 +441,7 @@ public class Shooter extends SubsystemBase {
      * @return Valid hood angle in radians
      */
     public double pitchToHood(double angle) {
+        System.out.println("Hood pitch: " + angle);
         // TODO: implement pitch to hood angle conversion
         return 0;
     }
@@ -453,6 +454,7 @@ public class Shooter extends SubsystemBase {
      * @return Flywheel velocity in RPM
      */
     public double velocityToRPM(double velocity) {
+        System.out.println("Flywheel velocity: " + velocity);
         // TODO: implement velocity to RPM conversion
         return 0;
     }
@@ -538,7 +540,7 @@ public class Shooter extends SubsystemBase {
                  * 
                  * can be trusted but will be unoptimized
                  */
-                double freeMotion = (robotTargetAngle + Math.PI) % (2*Math.PI) - Math.PI - robotAngle;
+                double freeMotion = (robotTargetAngle + Math.PI) % (2 * Math.PI) - Math.PI - robotAngle;
 
                 /*
                  * shortest possible movement to the target angle
@@ -547,8 +549,8 @@ public class Shooter extends SubsystemBase {
                  * 
                  * can't be trusted but will be optimized
                  */
-                double a = (robotTargetAngle - robotAngle) % Math.PI * 2;
-                double b = (robotAngle - robotTargetAngle) % Math.PI * 2;
+                double a = (robotTargetAngle - robotAngle + Math.PI) % (2 * Math.PI);
+                double b = (robotAngle - robotTargetAngle + Math.PI) % (2 * Math.PI);
                 double shortestMotion = (a < b) ? -a : b;
 
                 double motion = freeMotion;// shortestMotion;

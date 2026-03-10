@@ -447,6 +447,22 @@
 	],
 
 	"visionConfig" : [
+        {
+            "name": "TurretCamera",
+            "translation": {
+                "x": 0.18,
+                "y": 0.0,
+                "z": 0.1479
+            },
+            "angles": {
+                "pitch": 60,
+                "yaw": 0,
+                "roll": 90
+            },
+            "primaryStrat": "MULTI_TAG_PNP_ON_COPROCESSOR",
+            "backupStrat": "CLOSEST_TO_CAMERA_HEIGHT",
+            "includeInPoseEstimates": false
+        }
 	]
 }
 

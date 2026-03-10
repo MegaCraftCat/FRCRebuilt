@@ -111,23 +111,18 @@ public class VisionSystem {
             }
 
             if(visionEst.isPresent()) {
-                boolean d = getName().equals("Arducam_OV9782_D");
-
                 EstimatedRobotPose est = visionEst.get();
                 double ambiguity = getResultAmbiguity(est, latestResult);
                 double latestTimestamp = latestResult.getTimestampSeconds();
 
-                boolean valid = validateResult(est, ambiguity);
+                boolean valid = m_includeInPoseEstimates || validateResult(est, ambiguity);
             
                 boolean newResult = Math.abs(latestTimestamp - m_lastEstTime) > 1e-5;
                 if (newResult) {
                     m_lastEstTime = latestTimestamp;
                 }
 
-                if(valid) {
-                    if (d) {
-                        System.out.println("i can seeee");
-                    }
+                if (valid) {
                     Matrix<N3,N1> stdDevs = getEstimationStdDevs(est.estimatedPose.toPose2d());
                     result = Optional.of(new VisionEstimationResult(est.estimatedPose, latestTimestamp, ambiguity, stdDevs, latestResult));
                 }
