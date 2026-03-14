@@ -27,7 +27,10 @@ import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.geometry.Twist2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -118,6 +121,10 @@ public class Shooter extends SubsystemBase {
     private TDNumber m_TDturretMeasuredCurrent;
 
     private Pose3d m_turretPose;
+    private boolean m_turretGotResult;
+
+    private boolean m_turretRobotRelative;
+    private boolean m_turretControl;
 
     // Hood
     private final boolean m_hoodEnabled;
@@ -296,20 +303,24 @@ public class Shooter extends SubsystemBase {
         m_TDturretMeasuredPosition = new TDNumber(this, "Turret", "Measured Position");
         m_TDturretMeasuredCurrent = new TDNumber(this, "Turret", "Measured Current");
         m_TDturretProfilePosition = new TDNumber(this, "Turret", "Profile Position");
+
+        m_Drive = Drive.getInstance();
         
-        /*m_turretPose = new Pose3d(m_Drive.getPose()).plus(new Transform3d(new Pose3d(), new Pose3d(
+        m_turretPose = new Pose3d(m_Drive.getPose()).plus(new Transform3d(new Pose3d(), new Pose3d(
             new Translation3d(
                 cfgDbl("turretPositionX"),
                 cfgDbl("turretPositionY"),
                 cfgDbl("turretPositionZ")),
             Rotation3d.kZero
-        )));*/
+        )));
+        m_turretGotResult = false;
 
         double initPosition = 0;
         m_turretSetpoint = new TrapezoidProfile.State(initPosition, 0.0);
         m_turretState = new TrapezoidProfile.State(initPosition, 0.0);
 
-        m_Drive = Drive.getInstance();
+        m_turretRobotRelative = cfgBool("turretRobotRelative");
+        m_turretControl = true;
     }
 
     private void setupHood() {
@@ -594,6 +605,18 @@ public class Shooter extends SubsystemBase {
         return 0;
     }
 
+    public void setTurretRobotRelative(boolean rr) {
+        m_turretRobotRelative = rr;
+    }
+
+    public boolean getTurretRobotRelative() {
+        return m_turretRobotRelative;
+    }
+
+    public void setTurretControl(boolean control) {
+        m_turretControl = control;
+    }
+
     public void enableTurretCalibration(TurretCalibration mode) {
         m_turretCalibrationEnabled = true;
         m_turretCalibratedForward = false;
@@ -607,6 +630,18 @@ public class Shooter extends SubsystemBase {
 
     public boolean isTurretCalibrating() {
         return m_turretCalibrationEnabled;
+    }
+
+    public void setTurretRawSpeed(double speed) {
+        m_turretMotor.set(speed);
+    }
+
+    public void forceTurretZero() {
+        m_turretMotor.getEncoder().setPosition(0);
+        m_TDturretTargetAngle.set(0);
+        m_TDturretSpeed.set(0);
+        m_turretState = new TrapezoidProfile.State(0,0);
+        m_turretSetpoint = new TrapezoidProfile.State(0,0);
     }
 
     private void runTurretCalibration() {
@@ -649,6 +684,10 @@ public class Shooter extends SubsystemBase {
         }
     }
 
+    public Pose3d getTurretPose() {
+        return m_turretPose;
+    }
+
     private void runTurret() {
         m_TDturretMeasuredPosition.set(m_turretMotor.getEncoder().getPosition());
         m_TDturretMeasuredCurrent.set(m_turretMotor.getOutputCurrent());
@@ -658,6 +697,8 @@ public class Shooter extends SubsystemBase {
             runTurretCalibration();
             return;
         }
+
+        if (!m_turretControl) return;
 
         if (m_tuneTurret) {
             if (m_TDturretP.get() != m_turretP ||
@@ -680,7 +721,7 @@ public class Shooter extends SubsystemBase {
         m_TDturretTargetAngle.set(m_TDturretTargetAngle.get() + m_TDturretSpeed.get() * Constants.schedulerPeriodTime);
 
         Alliance alliance = DriverStation.getAlliance().orElse(Alliance.Blue);
-        TurretState state = m_tuneTurret ? TurretState.ROBOT_RELATIVE
+        TurretState state = (m_tuneTurret || m_turretRobotRelative) ? TurretState.ROBOT_RELATIVE
                 : (FieldUtils.getInstance().inAllianceZone(m_Drive.getPose(), alliance) ? TurretState.SHOOTING
                         : TurretState.FERRYING);
         double controlledAngle = angleToTarget(m_TDturretTargetAngle.get(), state);
@@ -707,12 +748,34 @@ public class Shooter extends SubsystemBase {
                 ClosedLoopSlot.kSlot0,
                 turretFF);
 
-        /*Optional<VisionEstimationResult> result = Vision.getInstance().getLatestFromCamera("TurretCamera");
+        Optional<VisionEstimationResult> result = Vision.getInstance().getLatestFromCamera("TurretCamera");
         if (result.isPresent()) {
             VisionEstimationResult turretEstimation = result.get();
+            
+            if (!m_turretGotResult) m_turretPose = turretEstimation.estimatedPose;
 
-            m_turretPose = m_turretPose.plus(new Transform3d(new Pose3d(), turretEstimation.estimatedPose.minus(m_turretPose)));
-        }*/
+            double slowT = Constants.schedulerPeriodTime * 2;
+            double fastT = Constants.schedulerPeriodTime * 16;
+
+            ChassisSpeeds delta = Drive.getInstance().getMeasuredSpeeds();
+            Translation2d velocity = new Translation2d(delta.vxMetersPerSecond, delta.vyMetersPerSecond);
+            double vmag = velocity.getDistance(Translation2d.kZero);
+            double vmax = Constants.DriveConstants.kMaxSpeedMetersPerSecond * 0.8 + Constants.DriveConstants.kMaxAngularSpeed * 0.25;
+            double weight = MathUtil.clamp(vmag, 0, vmax)/vmax;
+
+            double t = MathUtil.interpolate(slowT, fastT, weight);
+
+            Translation3d smoothedPosition = m_turretPose.getTranslation().plus(
+                turretEstimation.estimatedPose.getTranslation().minus(
+                    m_turretPose.getTranslation()).times(t));
+            Rotation3d smoothedRotation = m_turretPose.getRotation().plus(
+                turretEstimation.estimatedPose.getRotation().minus(
+                    m_turretPose.getRotation()).times(t));
+            
+            m_turretPose = new Pose3d(smoothedPosition, smoothedRotation);
+
+            m_turretGotResult = true;
+        }
     }
 
     private void runHood() {

@@ -347,6 +347,8 @@
 		{"varName" : "deployerEnabled", "value" : false},
 
 		{"varName" : "deployer2Invert", "value" : true},
+        {"varName" : "deployerCurrentLimit", "value" : 20},
+        {"varName" : "deployerZeroVelocityThreshold", "value" : 15},
 		{"varName" : "deployerStallLimit", "value" : 25},
 		{"varName" : "deployerFreeLimit", "value" : 60}
 	],
@@ -369,13 +371,15 @@
 
         {"varName" : "tuneTurret", "value" : true},
 
-        {"varName" : "turretP", "value": 0.50},
+        {"varName" : "turretRobotRelative", "value" : true},
+
+        {"varName" : "turretP", "value": 0.5},
         {"varName" : "turretI", "value": 0},
         {"varName" : "turretD", "value": 0},
 
-        {"varName" : "turretKs", "value": 0.12},
-        {"varName" : "turretKv", "value": 2.7},
-        {"varName" : "turretKa", "value": 0.01},
+        {"varName" : "turretKs", "value": 0.15},
+        {"varName" : "turretKv", "value": 1.6},
+        {"varName" : "turretKa", "value": 0.05},
 
         {"varName" : "turretPlanetaryRatio", "value" : 20},
         {"varName" : "turretPinionTeeth", "value" : 12},
@@ -385,8 +389,8 @@
 
         {"varName" : "turretSoftLimitWidth", "value" : 0.1745},
 
-        {"varName" : "turretForwardHardLimit", "value" : 3.665},
-        {"varName" : "turretReverseHardLimit", "value" : -3.665},
+        {"varName" : "turretForwardHardLimit", "value" : 2.967},
+        {"varName" : "turretReverseHardLimit", "value" : -2.967},
         {"varName" : "turretCurrentTrip", "value" : 20},
         {"varName" : "turretZeroSpeedTolerance", "value" : 0.05},
 
