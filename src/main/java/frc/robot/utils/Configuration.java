@@ -1,5 +1,6 @@
 package frc.robot.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -78,10 +79,10 @@ public class Configuration {
       scanner.close();
     } else {
       File f = new File(System.getenv("HOME") + "/identity");
+      if (!f.exists()) f = new File("/home/lvuser/identity");
       try (java.io.FileReader r = new java.io.FileReader(f)) {
-        char[] cbuf = new char[32];
-        r.read(cbuf, 0, 64);
-        myIdentity = cbuf.toString();
+        BufferedReader br = new BufferedReader(r);
+        myIdentity = br.readLine();
       } catch (IOException e) {
         System.err.printf("Error finding identity file: %s\n%s", e.getMessage(), e.getStackTrace());
       }

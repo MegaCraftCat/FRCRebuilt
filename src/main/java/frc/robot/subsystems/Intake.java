@@ -109,12 +109,12 @@ public class Intake extends SubsystemBase {
     }
 
     public void deploy(double speed) {
-        m_deploying = true;
+        m_deploying = false;
         m_currentSpeed = speed;
     }
 
     public void retract(double speed) {
-        m_deploying = false;
+        m_deploying = true;
         m_currentSpeed = speed;
     }
 
