@@ -145,11 +145,10 @@ public final class Constants {
         public static final double kVelocityFactor = 1;
 
         public static final double kHoodMotorFreeSpeed = Configuration.getInstance().getDouble("Shooter", "hoodMotorFreeSpeed");
-        public static final double kHoodPlanetaryRatio = Configuration.getInstance().getDouble("Shooter", "hoodPlanetaryRatio");
-        public static final double kHoodPinionTeeth = Configuration.getInstance().getDouble("Shooter", "hoodPinionTeeth");
-        public static final double kHoodLanternTeeth = Configuration.getInstance().getDouble("Shooter", "hoodLanternTeeth");
 
-        public static final double kHoodPositionConversion = 360 * kHoodPinionTeeth / (kHoodPlanetaryRatio * kHoodLanternTeeth);
+        public static final double kHoodGearRatioNumerator = Configuration.getInstance().getDouble("Shooter", "hoodGearRatioNumerator");
+        public static final double kHoodGearRatioDenominator = Configuration.getInstance().getDouble("Shooter", "hoodGearRatioDenominator");
+        public static final double kHoodPositionConversion = 360 * kHoodGearRatioNumerator / kHoodGearRatioDenominator;
         public static final double kHoodVelocityConversion = kHoodPositionConversion / 60;
         public static final double kHoodMaxVelocityDegreesPerSec = kHoodMotorFreeSpeed * kHoodVelocityConversion;
         public static final double kHoodMaxAcceleration = Configuration.getInstance().getDouble("Shooter", "hoodMaxAcceleration");
@@ -157,6 +156,7 @@ public final class Constants {
         public static final double kHoodStallSpeedTolerance = 5; //Degrees per second
         public static final double kHoodMaxAngle = Configuration.getInstance().getDouble("Shooter", "hoodMaxAngle");
         public static final double kHoodMinAngle = Configuration.getInstance().getDouble("Shooter", "hoodMinAngle");
+        public static final double kHoodAngleOffset = Configuration.getInstance().getDouble("Shooter", "hoodAngleOffset");
         public static final double kHoodToleranceDegrees = 1.0;
 
         public static final double kTurretPlanetaryRatio = Configuration.getInstance().getDouble("Shooter", "turretPlanetaryRatio");
@@ -164,9 +164,10 @@ public final class Constants {
         public static final double kTurretGearTeeth = Configuration.getInstance().getDouble("Shooter", "turretGearTeeth");
         public static final double kTurretPositionFactor = 2*Math.PI * kTurretPinionTeeth / (kTurretGearTeeth * kTurretPlanetaryRatio);
 
+        public static final String kTurretCameraName = "TurretCamera";
+
         public static final double kTurretMaxAccel = 10*Math.PI;
-        public static final double kTurretMaxVelocity = 2*Math.PI;
-        
+        public static final double kTurretMaxVelocity = 7.5;
         public static final double kBasicShooterRPM = 2000;
 
         public static final double kChimneySpeed = 0.7;

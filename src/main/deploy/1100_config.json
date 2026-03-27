@@ -98,7 +98,8 @@
         {"varName" : "hoodMotorFreeSpeed", "value" : 5676},
         {"varName" : "hoodMaxAcceleration", "value" : 720},
         {"varName" : "hoodMaxAngle", "value" : 40},
-        {"varName" : "hoodMinAngle", "value": 0}
+        {"varName" : "hoodMinAngle", "value": 0},
+        {"varName" : "hoodTolerance", "value" : 0.5}
     ],
 
     "Spindexer" : [
@@ -223,6 +224,8 @@
         {"varName" : "hoodMaxAcceleration", "value" : 720},
         {"varName" : "hoodMaxAngle", "value" : 0},
         {"varName" : "hoodMinAngle", "value": -40},
+        {"varName" : "hoodTolerance", "value" : 0.5},
+
         {"varName" : "chimneyEnabled", "value": false},
         {"varName" : "chimneyMotorCANid", "value": 20}
         
@@ -298,7 +301,75 @@
 	"Shooter" : [
 		{"varName" : "flywheelEnabled", "value" : false},
 
+<<<<<<< HEAD
 		{"varName" : "turretEnabled", "value" : false},
+=======
+        {"varName" : "tuneFlywheel", "value": false},
+        {"varName" : "flywheelP", "value": 0.00005},
+        {"varName" : "flywheelI", "value": 0},
+        {"varName" : "flywheelD", "value": 0.0002},
+
+        {"varName" : "flywheelKs", "value": 0.001},
+        {"varName" : "flywheelKv", "value": 0.00185},
+        {"varName" : "flywheelKa", "value": 0},
+
+        {"varName" : "flywheelVelocityFactor", "value" : 1},
+
+        {"varName" : "turretEnabled", "value" : true},
+
+        {"varName" : "tuneTurret", "value" : false},
+
+        {"varName" : "turretRobotRelative", "value" : false},
+
+        {"varName" : "turretP", "value": 0.5},
+        {"varName" : "turretI", "value": 0},
+        {"varName" : "turretD", "value": 0},
+
+        {"varName" : "turretKs", "value": 0.15},
+        {"varName" : "turretKv", "value": 1.6},
+        {"varName" : "turretKa", "value": 0.05},
+
+        {"varName" : "turretPlanetaryRatio", "value" : 20},
+        {"varName" : "turretPinionTeeth", "value" : 12},
+        {"varName" : "turretGearTeeth", "value" : 68},
+
+        {"varName" : "turretRatio", "value" : 77},
+
+        {"varName" : "turretSoftLimitWidth", "value" : 0.1745},
+
+        {"varName" : "turretForwardHardLimit", "value" : 2.967},
+        {"varName" : "turretReverseHardLimit", "value" : -2.967},
+        {"varName" : "turretCurrentTrip", "value" : 20},
+        {"varName" : "turretZeroSpeedTolerance", "value" : 0.05},
+
+        {"varName" : "turretStallCurrentLimit", "value" : 25},
+        {"varName" : "turretFreeCurrentLimit", "value" : 30},
+
+        {"varName" : "turretPositionX", "value" : -0.140},
+        {"varName" : "turretPositionY", "value" : -0.133},
+        {"varName" : "turretPositionZ", "value" : 0.337},
+
+		{"varName" : "hoodEnabled", "value" : true},
+
+        {"varName" : "tuneHood", "value" : true},
+
+        {"varName" : "hoodKg", "value" : -0.1},
+        {"varName" : "hoodKs", "value" : 0.01},
+        {"varName" : "hoodKv", "value" : 0.08},
+        {"varName" : "hoodP", "value" : 0.1},
+        {"varName" : "hoodI", "value" : 0},
+        {"varName" : "hoodD", "value" : 0},
+
+        {"varName" : "hoodGearRatioNumerator", "value" : 3},
+        {"varName" : "hoodGearRatioDenominator", "value" : 1024},
+
+        {"varName" : "hoodMotorFreeSpeed", "value" : 5676},
+        {"varName" : "hoodMaxAcceleration", "value" : 720},
+        {"varName" : "hoodMaxAngle", "value" : 0},
+        {"varName" : "hoodMinAngle", "value": -40},
+        {"varName" : "hoodAngleOffset", "value" : 10},
+        {"varName" : "hoodTolerance", "value" : 0.5},
+>>>>>>> 7ed519f4b51798b1ebb0bee559a9a75223521db0
 
 		{"varName" : "chimneyEnabled", "value" : true},
 
@@ -316,6 +387,41 @@
 	],
 
 	"visionConfig" : [
+<<<<<<< HEAD
+=======
+        {
+            "name": "TurretCamera",
+            "translation": {
+                "x": 0.18,
+                "y": 0.0,
+                "z": 0.1479
+            },
+            "angles": {
+                "pitch": -30,
+                "yaw": 0,
+                "roll": 0
+            },
+            "primaryStrat": "MULTI_TAG_PNP_ON_COPROCESSOR",
+            "backupStrat": "LOWEST_AMBIGUITY",
+            "includeInPoseEstimates": false
+        },
+        {
+            "name": "BackLeftCamera",
+            "translation": {
+                "x": -0.2814828,
+                "y": 0.2814828,
+                "z": 0.2055876
+            },
+            "angles": {
+                "pitch": -25,
+                "yaw": 135,
+                "roll": 0
+            },
+            "primaryStrat": "MULTI_TAG_PNP_ON_COPROCESSOR",
+            "backupStrat": "LOWEST_AMBIGUITY",
+            "includeInPoseEstimates": true
+        }
+>>>>>>> 7ed519f4b51798b1ebb0bee559a9a75223521db0
 	]
 }
 

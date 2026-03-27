@@ -9,6 +9,17 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.drive.SwerveDrive;
+<<<<<<< HEAD
+=======
+import frc.robot.commands.drive.YoureUnderArrest;
+import frc.robot.commands.shooter.ChimneyUp;
+import frc.robot.commands.shooter.CrawlingThroughTheTrench;
+import frc.robot.commands.shooter.FuelRainbowHub;
+import frc.robot.commands.shooter.FuelRainbowLeftTrench;
+import frc.robot.commands.shooter.FuelRainbowRightTrench;
+import frc.robot.commands.shooter.ShootToPose;
+import frc.robot.commands.spindexer.SpindexerSpin;
+>>>>>>> 7ed519f4b51798b1ebb0bee559a9a75223521db0
 import frc.robot.commands.vision.DisablePoseUpdates;
 import frc.robot.commands.vision.EnablePoseUpdates;
 import frc.robot.subsystems.Climber;
@@ -46,7 +57,8 @@ public class RobotContainer {
 
     //MAXSwerveModule.getInstance(); the method doesnt exist?
   
-    Shooter.getInstance();
+    Shooter shooter = Shooter.getInstance();
+    shooter.setDefaultCommand(new CrawlingThroughTheTrench());
 
     Spindexer.getInstance();
 

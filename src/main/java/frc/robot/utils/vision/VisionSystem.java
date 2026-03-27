@@ -34,6 +34,7 @@ public class VisionSystem {
     private PoseStrategy m_multiStrategy;
     private PoseStrategy m_singleStrategy;
     private boolean m_includeInPoseEstimates;
+    private double m_expectedPoseHeight = 0;
 
     public VisionSystem(VisionConfig config) {
         m_camera = new PhotonCamera(config.cameraName);
@@ -50,6 +51,10 @@ public class VisionSystem {
     }
 
     public String getName() { return m_camera.getName(); }
+
+    public void setExpectedHeight(double height) {
+        m_expectedPoseHeight = height;
+    }
 
     public Optional<VisionEstimationResult> getLatestEstimate() {
         return m_latestResult;
@@ -164,6 +169,7 @@ public class VisionSystem {
     // !! Currently only works for Multitag on Coproceesor, Update later to handle other stratgies !!
     public double getResultAmbiguity(EstimatedRobotPose estPose, PhotonPipelineResult latestResult) {
             double ambiguity = Double.MAX_VALUE;
+            var targets = estPose.targetsUsed;
             switch (estPose.strategy) {
                 case MULTI_TAG_PNP_ON_COPROCESSOR:
                     //ambiguity = latestResult.getMultiTagResult().estimatedPose.ambiguity;
@@ -171,7 +177,6 @@ public class VisionSystem {
                     break;
 
                 case LOWEST_AMBIGUITY:
-                    var targets = estPose.targetsUsed;
                     for(PhotonTrackedTarget target : targets) {
                         if(target.getPoseAmbiguity() < ambiguity) {
                             ambiguity = target.getPoseAmbiguity();
@@ -199,7 +204,12 @@ public class VisionSystem {
             return false;
         }
         //Reject if robot is too too far from ground level
+<<<<<<< HEAD
         if(Math.abs(estPose.estimatedPose.getZ()) > VisionConstants.kMaxZError) {
+=======
+        if(Math.abs(estPose.estimatedPose.getZ() - m_expectedPoseHeight) > VisionConstants.kMaxZError) {
+            System.out.println("pose too high " + estPose.estimatedPose);
+>>>>>>> 7ed519f4b51798b1ebb0bee559a9a75223521db0
             return false;
         }
         //Reject if robot is tilted too much
